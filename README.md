@@ -1,4 +1,4 @@
-# Sistema de Pedidos de Loja
+# Sistema de Pedidos de Loja - UCS 360
 
 Projeto desenvolvido para a disciplina **Programação Orientada a Objetos** na **Universidade de Caxias do Sul** (UCS) - 2025/2.
 
