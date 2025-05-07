@@ -1,12 +1,8 @@
 package Principal;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-	private static List<Cliente> clientes = new ArrayList<>();
-	private static List<Admin> admins = new ArrayList<>();
 	Scanner sc;
 	
 	public static void main(String[] args) {
@@ -63,12 +59,12 @@ public class Menu {
 			sc.nextLine();
 			switch(opcao) {
 			case 1:
-				clientes.add(new Cliente());
+				new Cliente();
 				opcao = 0;
 				break;
 				
 			case 2:
-				admins.add(new Admin());
+				new Admin();
 				opcao = 0;
 				break;
 				

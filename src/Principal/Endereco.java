@@ -1,5 +1,7 @@
 package Principal;
 
+import java.util.Scanner;
+
 public class Endereco {
 	private String rua;
 	private String numero;
@@ -8,6 +10,35 @@ public class Endereco {
 	private String estado;
 	private String cep;
 	private String complemento;
+	
+	private void preencherDados() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Digite a sua rua: ");
+		this.setRua(sc.nextLine());
+		
+		System.out.println("Digite o seu bairro: ");
+		this.setBairro(sc.nextLine());
+		
+		System.out.println("Digite o seu numero: ");
+		this.setNumero(sc.nextLine());
+		
+		System.out.println("Digite a sua cidade: ");
+		this.setCidade(sc.nextLine());
+		
+		System.out.println("Digite o seu estado: ");
+		this.setEstado(sc.nextLine());
+		
+		System.out.println("Digite o seu cep: ");
+		this.setCep(sc.nextLine());
+		
+		System.out.println("Digite algum complemento: ");
+		this.setComplemento(sc.nextLine());
+	}
+	
+	public Endereco() {
+		preencherDados();
+	}
 	
 	public String getRua() {
 		return rua;

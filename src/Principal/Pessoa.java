@@ -1,5 +1,7 @@
 package Principal;
 
+import java.util.Scanner;
+
 public abstract class Pessoa {
 	private String nome;
 	private String telefone;
@@ -7,16 +9,30 @@ public abstract class Pessoa {
 	private Endereco endereco;
 	private int id;
 	
+	private void preencherDados() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Digite o seu nome: ");
+		this.setNome(sc.nextLine());
+		
+		System.out.println("Digite o seu telefone: ");
+		this.setTelefone(sc.nextLine());
+		
+		System.out.println("Digite o seu email: ");
+		this.setEmail(sc.nextLine());
+	}
+
+	public Pessoa() {
+		preencherDados();
+		endereco = new Endereco();
+	}
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public Pessoa() {
-		endereco = new Endereco();
 	}
 	
 	public String getNome() {
