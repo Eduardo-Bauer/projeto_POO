@@ -8,10 +8,14 @@ public class Admin {
 	private List<Pedido> pedidos;
 	private static List<Admin> admins = new ArrayList<>();
 	
-	private void addAdmin() {
-		for(int i = 0; i < admins.size(); i++) {
-			if(admins.get(i) != null && admins.get(i).getDado().getLogin().equals(this.dado.getLogin())) {
-				System.out.println("Admin já criado");
+	public Admin() {
+		
+	}
+	
+	private void adicionarAdmin() {
+		for(Admin admin : Admin.admins) {
+			if(admin.getDado().getLogin().equals(this.getDado().getLogin())) {
+				System.out.println("Admin já cadastrado, tente fazer o login!");
 				return;
 			}
 		}
@@ -19,10 +23,22 @@ public class Admin {
 		admins.add(this);
 	}
 	
-	public Admin() {
+	public void cadastrarAdmin() {
 		dado = new Dado(true);
 		pedidos = new ArrayList<Pedido>();
-		addAdmin();
+		adicionarAdmin();
+	}
+	
+	public boolean conferirEntrada() {
+		dado = new Dado(true);
+		for(Admin admin : Admin.admins) {
+			if(admin.getDado().getClass() == this.getDado().getClass()) {
+				System.out.println("Continuar");
+				return true;
+			}
+		}
+		System.out.println("Login ou senha incorretos!");
+		return false;
 	}
 	
 	public Dado getDado() {

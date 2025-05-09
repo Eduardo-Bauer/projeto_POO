@@ -9,7 +9,7 @@ public abstract class Pessoa {
 	private Endereco endereco;
 	private int id;
 	
-	private void preencherDados() {
+	public void preencherDados() {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Digite o seu nome: ");
@@ -20,13 +20,10 @@ public abstract class Pessoa {
 		
 		System.out.println("Digite o seu email: ");
 		this.setEmail(sc.nextLine());
-	}
-
-	public Pessoa() {
-		preencherDados();
+		
 		endereco = new Endereco();
 	}
-	
+
 	public Endereco getEndereco() {
 		return endereco;
 	}

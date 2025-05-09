@@ -1,0 +1,15 @@
+produto tem que ter um código de consulta, id.
+
+interfaces:
+
+public interface ConsultasGerais{
+	void consultaProdutos(int id, String nome);
+		
+}
+
+public interface ConsultasAdin extends ConsultasGerais{
+	void consultaClientes(int id, String nome);
+	void consultaPedidos(int, numero);
+	void consultaFornecedor(int id, String nome);
+	void consultaEstoques(Produto produto);
+}

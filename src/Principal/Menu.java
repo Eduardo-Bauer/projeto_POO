@@ -3,7 +3,11 @@ package Principal;
 import java.util.Scanner;
 
 public class Menu {
-	Scanner sc;
+	private Scanner sc;
+	
+	public Menu() {
+		sc = new Scanner(System.in);
+	}
 	
 	public static void main(String[] args) {
 		Menu menu = new Menu();
@@ -12,7 +16,7 @@ public class Menu {
 	
 	public void menuInicial() {
 		int opcao = 0;
-		sc = new Scanner(System.in);
+
 		do {
 			System.out.println("---------------------------------------------");
 			System.out.println("Bem vindo ao UCS 360!!, como posso ajudar?");
@@ -44,7 +48,39 @@ public class Menu {
 	}
 	
 	public void entrar() {
-		
+		int opcao = 0;
+		do {
+			System.out.println("---------------------------------------------");
+			System.out.println("Entrar");
+			System.out.println("1 - Entrar como cliente");
+			System.out.println("2 - Entrar como administrador");
+			System.out.println("0 - Voltar para o menu inicial");
+			opcao = sc.nextInt();
+			sc.nextLine();
+			switch(opcao) {
+			case 1:
+				if(new Cliente().conferirEntrada()){
+					
+				};
+				opcao = 0;
+				break;
+				
+			case 2:
+				if(new Admin().conferirEntrada()){
+					
+				};
+				opcao = 0;
+				break;
+				
+			case 0:
+				System.out.println("Voltando...");
+				break;
+			
+			default: 
+				System.out.println("Opção inválida");
+				break;
+			}
+		}while(opcao != 0);
 	}
 	
 	public void cadastrarUsuario() {
@@ -59,12 +95,12 @@ public class Menu {
 			sc.nextLine();
 			switch(opcao) {
 			case 1:
-				new Cliente();
+				new Cliente().cadastrarCliente();
 				opcao = 0;
 				break;
 				
 			case 2:
-				new Admin();
+				new Admin().cadastrarAdmin();
 				opcao = 0;
 				break;
 				

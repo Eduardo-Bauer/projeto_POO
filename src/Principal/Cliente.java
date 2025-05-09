@@ -9,21 +9,47 @@ public class Cliente extends Pessoa{
 	private List<Pedido> pedido;
 	private static List<Cliente> clientes = new ArrayList<>();
 	
-	private void addCliente() {
-		for(int i = 0; i < clientes.size(); i++) {
-			if(clientes.get(i) != null && (clientes.get(i).getNome().equals(this.getNome()) || clientes.get(i).getDado().getLogin().equals(this.getDado().getLogin()))) {
-				System.out.println("Usuario já cadastrado");
+	public Cliente() {
+		
+	}
+	
+	private boolean conferirDados() {
+		for (Cliente cliente : Cliente.clientes) {
+			if(cliente.getDado().getLogin().equals(this.getDado().getLogin())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void adicionarCliente() {
+		for(Cliente cliente : Cliente.clientes) {
+			if(cliente.getNome().equals(this.getNome())) {
+				System.out.println("Nome já em uso!");
 				return;
 			}
 		}
-		System.out.println("Cliente cadastrado com sucesso!");
-		clientes.add(this);
+		System.out.println((conferirDados() ? "Login já em uso!" : "Cliente cadastrado com sucesso!"));
+		Cliente.clientes.add(this);
 	}
 	
-	public Cliente() {
+	public void cadastrarCliente() {
+		this.preencherDados();
 		dado = new Dado(false);
 		pedido = new ArrayList<Pedido>();
-		addCliente();
+		adicionarCliente();
+	}
+	
+	public boolean conferirEntrada() {
+		dado = new Dado(false);
+		for(Cliente cliente : Cliente.clientes) {
+			if(cliente.getDado().getClass() == this.getDado().getClass()) {
+				System.out.println("Continuar");
+				return true;
+			}
+		}
+		System.out.println("Login ou senha incorretos!");
+		return false;
 	}
 
 	public String getCartaoCredito() {
