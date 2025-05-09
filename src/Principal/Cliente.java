@@ -40,16 +40,16 @@ public class Cliente extends Pessoa{
 		adicionarCliente();
 	}
 	
-	public boolean conferirEntrada() {
+	public int conferirEntrada() {
 		dado = new Dado(false);
-		for(Cliente cliente : Cliente.clientes) {
-			if(cliente.getDado().getClass() == this.getDado().getClass()) {
+		for(int i = 0; i < clientes.size(); i++) {
+			if(clientes.get(i).getDado().getClass() == this.getDado().getClass()) {
 				System.out.println("Continuar");
-				return true;
+				return i;
 			}
 		}
 		System.out.println("Login ou senha incorretos!");
-		return false;
+		return -1;
 	}
 
 	public String getCartaoCredito() {

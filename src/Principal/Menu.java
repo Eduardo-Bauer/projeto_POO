@@ -59,14 +59,16 @@ public class Menu {
 			sc.nextLine();
 			switch(opcao) {
 			case 1:
-				if(new Cliente().conferirEntrada()){
+				int clienteAtivo = new Cliente().conferirEntrada();
+				if(clienteAtivo != -1){
 					
 				};
 				opcao = 0;
 				break;
 				
 			case 2:
-				if(new Admin().conferirEntrada()){
+				int adminAtivo = new Admin().conferirEntrada();
+				if(adminAtivo != -1){
 					
 				};
 				opcao = 0;

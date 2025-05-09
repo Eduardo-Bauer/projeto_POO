@@ -29,16 +29,16 @@ public class Admin {
 		adicionarAdmin();
 	}
 	
-	public boolean conferirEntrada() {
+	public int conferirEntrada() {
 		dado = new Dado(true);
-		for(Admin admin : Admin.admins) {
-			if(admin.getDado().getClass() == this.getDado().getClass()) {
+		for(int i = 0; i < admins.size(); i++) {
+			if(admins.get(i).getDado().getClass() == this.getDado().getClass()) {
 				System.out.println("Continuar");
-				return true;
+				return i;
 			}
 		}
 		System.out.println("Login ou senha incorretos!");
-		return false;
+		return -1;
 	}
 	
 	public Dado getDado() {
