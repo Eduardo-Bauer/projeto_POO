@@ -32,7 +32,7 @@ public class Admin {
 	public int conferirEntrada() {
 		dado = new Dado(true);
 		for(int i = 0; i < admins.size(); i++) {
-			if(admins.get(i).getDado().getClass() == this.getDado().getClass()) {
+			if(admins.get(i).getDado().getLogin().equals(this.getDado().getLogin()) && admins.get(i).getDado().getSenha().equals(this.getDado().getSenha())) {
 				System.out.println("Continuar");
 				return i;
 			}

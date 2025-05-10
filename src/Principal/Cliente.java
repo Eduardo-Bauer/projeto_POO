@@ -43,7 +43,7 @@ public class Cliente extends Pessoa{
 	public int conferirEntrada() {
 		dado = new Dado(false);
 		for(int i = 0; i < clientes.size(); i++) {
-			if(clientes.get(i).getDado().getClass() == this.getDado().getClass()) {
+			if(clientes.get(i).getDado().getLogin().equals(this.getDado().getLogin()) && clientes.get(i).getDado().getSenha().equals(this.getDado().getSenha())) {
 				System.out.println("Continuar");
 				return i;
 			}
