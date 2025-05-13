@@ -1,4 +1,4 @@
-package Principal;
+package br.ucs.ucs360.informacoes;
 
 import java.util.Scanner;
 
@@ -8,18 +8,21 @@ public abstract class Pessoa {
 	private String email;
 	private Endereco endereco;
 	private int id;
+	private Scanner sc;
 	
-	public void preencherDados() {
-		Scanner sc = new Scanner(System.in);
+	public void preencherDados(int id) {
+		sc = new Scanner(System.in);
 		
-		System.out.println("Digite o seu nome: ");
+		System.out.print("Digite nome: ");
 		this.setNome(sc.nextLine());
 		
-		System.out.println("Digite o seu telefone: ");
+		System.out.print("Digite telefone: ");
 		this.setTelefone(sc.nextLine());
 		
-		System.out.println("Digite o seu email: ");
+		System.out.print("Digite email: ");
 		this.setEmail(sc.nextLine());
+		
+		this.setId(id);
 		
 		endereco = new Endereco();
 	}

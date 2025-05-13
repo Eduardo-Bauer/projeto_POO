@@ -1,16 +1,28 @@
-package Principal;
+package br.ucs.ucs360.usuarios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import br.ucs.ucs360.informacoes.Dado;
+import br.ucs.ucs360.informacoes.Pessoa;
+import br.ucs.ucs360.logistica.Pedido;
 
 public class Cliente extends Pessoa{
 	private String cartaoCredito;
 	private Dado dado;
-	private List<Pedido> pedido;
+	private List<Pedido> pedidos;
 	private static List<Cliente> clientes = new ArrayList<>();
+	private static int ultimoCliente = 0;
+	private Scanner sc;
 	
 	public Cliente() {
-		
+		sc = new Scanner(System.in);
+	}
+	
+	private void preencherDadosCliente() {
+		System.out.println("Digite o numero do cartão de crédito");
+		this.setCartaoCredito(sc.nextLine());
 	}
 	
 	private boolean conferirDados() {
@@ -31,12 +43,14 @@ public class Cliente extends Pessoa{
 		}
 		System.out.println((conferirDados() ? "Login já em uso!" : "Cliente cadastrado com sucesso!"));
 		Cliente.clientes.add(this);
+		ultimoCliente++;
 	}
 	
 	public void cadastrarCliente() {
-		this.preencherDados();
+		preencherDados(ultimoCliente);
+		preencherDadosCliente();
 		dado = new Dado(false);
-		pedido = new ArrayList<Pedido>();
+		pedidos = new ArrayList<Pedido>();
 		adicionarCliente();
 	}
 	
@@ -69,10 +83,34 @@ public class Cliente extends Pessoa{
 	}
 
 	public List<Pedido> getPedido() {
-		return pedido;
+		return pedidos;
 	}
 
 	public void setPedido(List<Pedido> pedido) {
-		this.pedido = pedido;
+		this.pedidos = pedido;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public static List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public static void setClientes(List<Cliente> clientes) {
+		Cliente.clientes = clientes;
+	}
+
+	public static int getUltimoCliente() {
+		return ultimoCliente;
+	}
+
+	public static void setUltimoCliente(int ultimoCliente) {
+		Cliente.ultimoCliente = ultimoCliente;
 	}
 }

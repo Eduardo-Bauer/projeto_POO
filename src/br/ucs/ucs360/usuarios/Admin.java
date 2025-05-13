@@ -1,7 +1,10 @@
-package Principal;
+package br.ucs.ucs360.usuarios;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.ucs.ucs360.informacoes.Dado;
+import br.ucs.ucs360.logistica.Pedido;
 
 public class Admin {
 	private Dado dado;
@@ -29,10 +32,24 @@ public class Admin {
 		adicionarAdmin();
 	}
 	
+	private boolean conferirSenha(Admin admin) {
+		if(admin.getDado().getSenha().equals(this.getDado().getSenha())) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean conferirLogin(Admin admin) {
+		if(admin.getDado().getLogin().equals(this.getDado().getLogin())) {
+			return true;
+		}
+		return false;
+	}
+	
 	public int conferirEntrada() {
 		dado = new Dado(true);
 		for(int i = 0; i < admins.size(); i++) {
-			if(admins.get(i).getDado().getLogin().equals(this.getDado().getLogin()) && admins.get(i).getDado().getSenha().equals(this.getDado().getSenha())) {
+			if(conferirSenha(admins.get(i)) && conferirLogin(admins.get(i))) {
 				System.out.println("Continuar");
 				return i;
 			}

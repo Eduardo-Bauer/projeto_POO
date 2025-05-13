@@ -1,4 +1,4 @@
-package Principal;
+package br.ucs.ucs360.logistica;
 
 import java.sql.Date;
 

@@ -1,4 +1,4 @@
-package Principal;
+package br.ucs.ucs360.informacoes;
 
 import java.util.Scanner;
 
@@ -10,29 +10,30 @@ public class Endereco {
 	private String estado;
 	private String cep;
 	private String complemento;
+	private Scanner sc;
 	
 	private void preencherDados() {
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
-		System.out.println("Digite a sua rua: ");
+		System.out.print("Digite rua: ");
 		this.setRua(sc.nextLine());
 		
-		System.out.println("Digite o seu bairro: ");
+		System.out.print("Digite bairro: ");
 		this.setBairro(sc.nextLine());
 		
-		System.out.println("Digite o seu numero: ");
+		System.out.print("Digite numero: ");
 		this.setNumero(sc.nextLine());
 		
-		System.out.println("Digite a sua cidade: ");
+		System.out.print("Digite cidade: ");
 		this.setCidade(sc.nextLine());
 		
-		System.out.println("Digite o seu estado: ");
+		System.out.print("Digite estado: ");
 		this.setEstado(sc.nextLine());
 		
-		System.out.println("Digite o seu cep: ");
+		System.out.print("Digite cep: ");
 		this.setCep(sc.nextLine());
 		
-		System.out.println("Digite algum complemento: ");
+		System.out.print("Digite algum complemento: ");
 		this.setComplemento(sc.nextLine());
 	}
 	

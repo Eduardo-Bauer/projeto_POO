@@ -1,4 +1,4 @@
-package Principal;
+package br.ucs.ucs360.informacoes;
 
 import java.util.Scanner;
 
@@ -6,9 +6,10 @@ public class Dado {
 	private String login;
 	private String senha;
 	private boolean tipo;
+	private Scanner sc;
 	
     private void preencherDados(boolean tipo) {
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
 
         System.out.print("Digite o login: ");
         this.setLogin(sc.nextLine());
