@@ -1,4 +1,4 @@
-package br.ucs.ucs360.informacoes;
+package br.ucs.ucs360.usuarios.informacoes;
 
 import java.util.Scanner;
 
@@ -35,6 +35,48 @@ public class Endereco {
 		
 		System.out.print("Digite algum complemento: ");
 		this.setComplemento(sc.nextLine());
+	}
+	
+	public void atualizarRua() {
+		System.out.print("Digite a nova rua: ");
+		this.setRua(sc.nextLine());
+		System.out.println("Rua atualizada com sucesso!");
+	}
+	
+	public void atualizarBairro() {
+		System.out.print("Digite o novo bairro: ");
+		this.setBairro(sc.nextLine());	
+		System.out.println("Bairro atualizada com sucesso!");		
+	}
+	
+	public void atualizarNumero() {
+		System.out.print("Digite o novo numero: ");
+		this.setNumero(sc.nextLine());
+		System.out.println("Numero atualizado com sucesso!");
+	}
+	
+	public void atualizarCidade() {
+		System.out.print("Digite a nova cidade: ");
+		this.setCidade(sc.nextLine());
+		System.out.println("Cidade atualizada com sucesso!");
+	}
+	
+	public void atualizarEstado() {
+		System.out.print("Digite o novo estado: ");
+		this.setEstado(sc.nextLine());
+		System.out.println("Estado atualizado com sucesso!");
+	}
+	
+	public void atualizarCep() {
+		System.out.print("Digite o novo cep: ");
+		this.setCep(sc.nextLine());
+		System.out.println("Cep atualizado com sucesso!");
+	}
+	
+	public void atualziarComplemento() {
+		System.out.print("Digite algum novo complemento: ");
+		this.setComplemento(sc.nextLine());
+		System.out.println("Complemento atualizado com sucesso!");
 	}
 	
 	public Endereco() {

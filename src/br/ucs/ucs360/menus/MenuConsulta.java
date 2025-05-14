@@ -11,7 +11,7 @@ public class MenuConsulta {
 	
 	public String[] consultaEspecifica() {
 		int opcao = 0;
-		String[] filtro = new String[2];
+		String[] filtro = new String[3];
 		do {
 			System.out.println("---------------------------------------------");
 			System.out.println("Selecione o tipo da consulta:");
@@ -35,11 +35,12 @@ public class MenuConsulta {
 				break;
 			
 			case 3:
-				filtro = null;
+				filtro[2] = "sem filtro";
 				opcao = 0;
 				break;				
 				
 			case 0:
+				filtro = null;
 				System.out.println("Voltando...");
 				break;
 			

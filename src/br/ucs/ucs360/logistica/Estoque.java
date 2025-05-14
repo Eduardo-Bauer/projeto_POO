@@ -9,37 +9,12 @@ public class Estoque {
 	private int quantidade;
 	private double preco;
 	private Produto produto;
-	private static List<Estoque> listaEstoque = new ArrayList<>();
+	private static List<Estoque> listaEstoques = new ArrayList<>();
 	private static int ultimoEstoque = 0;
 	private Scanner sc;
 	
 	public Estoque() {
 		sc = new Scanner(System.in);
-	}
-	
-	private int escolherProduto() {
-		int numero = -1;
-		boolean valido = false;
-		
-		if(Produto.getListaProdutos().size() == 0) {
-			System.out.println("É necessário cadastrar um produto antes");
-			return numero;
-		}
-		do {
-			new Produto().consultarProdutos();
-		
-			System.out.print("Digite o numero do produto: ");
-			numero = sc.nextInt();
-			sc.nextLine();
-			
-			if(numero < 0 || numero > Produto.getUltimoProduto() - 1) {
-				System.out.println("Opção inválida");
-				continue;
-			}
-			valido = true;
-			
-		} while(!valido);
-		return numero;
 	}
 	
 	private void preencherDados(int produto) {
@@ -53,11 +28,13 @@ public class Estoque {
 		
 		this.setProduto(Produto.getListaProdutos().get(produto));
 		
+		listaEstoques.add(this);
+		
 		System.out.println("Estoque atualizado com sucesso!");
 	}
 	
 	public void cadastrarEstoque() {
-		int produto = escolherProduto();
+		int produto = new Produto().escolherProduto();
 		
 		if(produto != -1) {
 			preencherDados(produto);
@@ -98,11 +75,11 @@ public class Estoque {
 	}
 
 	public static List<Estoque> getListaEstoque() {
-		return listaEstoque;
+		return listaEstoques;
 	}
 
 	public static void setListaEstoque(List<Estoque> listaEstoque) {
-		Estoque.listaEstoque = listaEstoque;
+		Estoque.listaEstoques = listaEstoque;
 	}
 
 	public static int getUltimoEstoque() {

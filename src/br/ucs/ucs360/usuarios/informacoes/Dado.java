@@ -1,4 +1,4 @@
-package br.ucs.ucs360.informacoes;
+package br.ucs.ucs360.usuarios.informacoes;
 
 import java.util.Scanner;
 

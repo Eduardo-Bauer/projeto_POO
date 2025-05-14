@@ -2,45 +2,45 @@ package br.ucs.ucs360.menus.atualizacao;
 
 import java.util.Scanner;
 
-import br.ucs.ucs360.logistica.Produto;
+import br.ucs.ucs360.logistica.Fornecedor;
 
-public class MenuAtualizacaoProduto {
+public class MenuAtualizacaoFornecedor {
 	private Scanner sc;
 	
-	public MenuAtualizacaoProduto() {
+	public MenuAtualizacaoFornecedor() {
 		sc = new Scanner(System.in);
 		int opcao = 0;
-		int produto = new Produto().escolherProduto();
+		int fornecedor = new Fornecedor().escolherFornecedor();
 		
-		if(produto != -1) {
+		if(fornecedor != -1) {
 			do {
 				System.out.println("---------------------------------------------");
 				System.out.println("Selecione o que fazer:");
-				System.out.println("1 - Atualizar nome");
-				System.out.println("2 - Atualizar descricao");
-				System.out.println("3 - Atualizar fornecedor");
-				System.out.println("4 - Atualizar estoque");
+				System.out.println("1 - Atualizar descricao");
+				System.out.println("2 - Atualizar produto");
+				System.out.println("3 - Atualizar dados pessoais");
+				System.out.println("4 - Atualizar endereco");
 				System.out.println("0 - Voltar");
 				opcao = sc.nextInt();
 				sc.nextLine();
 				switch(opcao) {
 				case 1:
-					new Produto().atualizarNome(produto);
+					new Fornecedor().atualizarDescricao(fornecedor);
 					opcao = 0;
 					break;
 					
 				case 2:
-					new Produto().atualizarDescricao(produto);
+					new MenuAtualizacaoProduto();
 					opcao = 0;
 					break;
 					
 				case 3:
-					new MenuAtualizacaoFornecedor();
+					new MenuAtualizacaoPessoa(Fornecedor.getListaFornecedores().get(fornecedor));
 					opcao = 0;
 					break;
-					
+				
 				case 4:
-					new MenuAtualizacaoEstoque();
+					new MenuAtualizacaoEndereco(Fornecedor.getListaFornecedores().get(fornecedor));
 					opcao = 0;
 					break;
 					
@@ -54,5 +54,7 @@ public class MenuAtualizacaoProduto {
 				}
 			}while(opcao != 0);
 		}
+		
+		
 	}
 }

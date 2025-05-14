@@ -18,31 +18,6 @@ public class Produto {
 		sc = new Scanner(System.in);
 	}
 	
-	private int escolherFornecedor() {
-		int numero = -1;
-		boolean valido = false;
-		
-		if(Fornecedor.getListaFornecedores().size() == 0) {
-			System.out.println("É necessário cadastrar um fornecedor antes");
-			return numero;
-		}
-		do {
-			new Fornecedor().consultarFornecedores();
-		
-			System.out.print("Digite o numero do fornecedor: ");
-			numero = sc.nextInt();
-			sc.nextLine();
-			
-			if(numero < 0 || numero > Fornecedor.getUltimoFornecedor()-1) {
-				System.out.println("Opção inválida");
-				continue;
-			}
-			valido = true;
-			
-		} while(!valido);
-		return numero;
-	}
-	
 	private void preencherDados(int fornecedor) {
 		System.out.print("Digite o nome do produto: ");
 		this.setNome(sc.nextLine());
@@ -61,17 +36,60 @@ public class Produto {
 			}
 		}
 		listaProdutos.add(this);
+		
 		this.setId(ultimoProduto++);
+		
 		System.out.println("Produto cadastrado com sucesso!");
 	}
 	
 	public void cadastrarProduto() {
-		int fornecedor = escolherFornecedor();
+		int fornecedor = new Fornecedor().escolherFornecedor();
 		
 		if(fornecedor != -1) {
 			preencherDados(fornecedor);
+			
 			adcionarProduto();
+			
 			Fornecedor.getListaFornecedores().get(fornecedor).adicionarProdutoFornecedor(this);
+		}
+	}
+	
+	public int escolherProduto() {
+		int numero = -1;
+		
+		if(Produto.getListaProdutos().size() == 0) {
+			System.out.println("É necessário cadastrar um produto antes");
+			return numero;
+		}
+		while(true) {
+			consultarProdutos();
+			
+			System.out.print("Digite o numero do produto: ");
+			
+			numero = sc.nextInt();
+			sc.nextLine();
+			
+			for(int i = 0; i < listaProdutos.size(); i++) {
+				if(listaProdutos.get(i).getId() == numero) {
+					return i;
+				}
+			}
+			System.out.println("Opção inválida");
+			continue;	
+		}
+	}
+	
+	public void removerProduto() {
+		int produto = escolherProduto();
+		
+		if(produto != -1) {
+			Estoque.getListaEstoque().remove(listaProdutos.get(produto).getEstoque());
+			
+			new Fornecedor().removerProduto(listaProdutos.get(produto));
+			
+			listaProdutos.remove(listaProdutos.get(produto));
+			
+			System.out.println("Produto removido com sucesso!");
 		}
 	}
 	
@@ -93,8 +111,12 @@ public class Produto {
 		boolean encontrado = false;
 	    String id;
 	    if(filtro == null) {
-	    	consultarProdutos();
 	    	return;
+	    }else {
+	    	if(filtro[2] != null) {
+	    		consultarProdutos();
+	    		return;
+	    	}
 	    }
 	    
 		if(filtro[0] != null) {
@@ -115,9 +137,22 @@ public class Produto {
 				}
 			}
 		}
+		
 		if(!encontrado) {
 			System.out.println("produto não encontrado");
 		}
+	}
+
+	public void atualizarNome(int produto) {
+		System.out.print("Digite o novo nome: ");
+		listaProdutos.get(produto).setNome(sc.nextLine());
+		System.out.println("Produto atualizado com sucesso!");
+	}
+	
+	public void atualizarDescricao(int produto) {
+		System.out.print("Digite a nova descricao: ");
+		listaProdutos.get(produto).setDescricao(sc.nextLine());
+		System.out.println("Produto atualizado com sucesso!");
 	}
 	
 	public String getNome() {

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import br.ucs.ucs360.informacoes.Dado;
-import br.ucs.ucs360.informacoes.Pessoa;
 import br.ucs.ucs360.logistica.Pedido;
+import br.ucs.ucs360.usuarios.informacoes.Dado;
+import br.ucs.ucs360.usuarios.informacoes.Pessoa;
 
 public class Cliente extends Pessoa{
 	private String cartaoCredito;

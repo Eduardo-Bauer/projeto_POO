@@ -3,6 +3,9 @@ package br.ucs.ucs360.menus.admin.crud;
 import java.util.Scanner;
 
 import br.ucs.ucs360.logistica.Fornecedor;
+import br.ucs.ucs360.logistica.Produto;
+import br.ucs.ucs360.menus.MenuConsulta;
+import br.ucs.ucs360.menus.atualizacao.MenuAtualizacaoFornecedor;
 
 public class MenuCrudFornecedor {
 	private Scanner sc;
@@ -17,6 +20,7 @@ public class MenuCrudFornecedor {
 			System.out.println("2 - Consultar fornecedor");
 			System.out.println("3 - Atualizar fornecedor");
 			System.out.println("4 - Remover fornecedor");
+			System.out.println("5 - Remover produto");
 			System.out.println("0 - Voltar para o menu inicial");
 			opcao = sc.nextInt();
 			sc.nextLine();
@@ -26,15 +30,19 @@ public class MenuCrudFornecedor {
 				break;
 				
 			case 2:
-
+				new Fornecedor().consultarFornecedorEspecifico(new MenuConsulta().consultaEspecifica());
 				break;
 				
 			case 3:
-
+				new MenuAtualizacaoFornecedor();
 				break;
 				
 			case 4:
-
+				new Fornecedor().removerFornecedor();
+				break;
+				
+			case 5:
+				new Fornecedor().removerProduto(Produto.getListaProdutos().get(new Produto().escolherProduto()));
 				break;
 				
 			case 0:

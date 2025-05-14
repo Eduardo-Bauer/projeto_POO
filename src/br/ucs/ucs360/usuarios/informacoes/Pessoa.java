@@ -1,4 +1,4 @@
-package br.ucs.ucs360.informacoes;
+package br.ucs.ucs360.usuarios.informacoes;
 
 import java.util.Scanner;
 
@@ -27,6 +27,24 @@ public abstract class Pessoa {
 		endereco = new Endereco();
 	}
 
+	public void atualizarNome() {
+		System.out.print("Digite o novo nome: ");
+		this.setNome(sc.nextLine());
+		System.out.println("Nome atualizado com sucesso!");
+	}
+	
+	public void atualizarTelefone() {
+		System.out.print("Digite o novo telefone: ");
+		this.setTelefone(sc.nextLine());
+		System.out.println("Telefone atualizado com sucesso!");
+	}
+	
+	public void atualizarEmail() {
+		System.out.print("Digite o novo email: ");
+		this.setEmail(sc.nextLine());
+		System.out.println("Email atualizado com sucesso!");
+	}
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}

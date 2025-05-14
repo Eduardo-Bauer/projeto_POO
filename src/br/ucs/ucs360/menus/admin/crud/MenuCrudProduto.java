@@ -5,6 +5,7 @@ import java.util.Scanner;
 import br.ucs.ucs360.logistica.Estoque;
 import br.ucs.ucs360.logistica.Produto;
 import br.ucs.ucs360.menus.MenuConsulta;
+import br.ucs.ucs360.menus.atualizacao.MenuAtualizacaoProduto;
 
 public class MenuCrudProduto {
 	private Scanner sc;
@@ -37,11 +38,11 @@ public class MenuCrudProduto {
 				break;
 				
 			case 4:
-				
+				new MenuAtualizacaoProduto();
 				break;
 				
 			case 5:
-				
+				new Produto().removerProduto();
 				break;
 				
 			case 0:

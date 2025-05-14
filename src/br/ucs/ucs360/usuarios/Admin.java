@@ -3,8 +3,8 @@ package br.ucs.ucs360.usuarios;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ucs.ucs360.informacoes.Dado;
 import br.ucs.ucs360.logistica.Pedido;
+import br.ucs.ucs360.usuarios.informacoes.Dado;
 
 public class Admin {
 	private Dado dado;
