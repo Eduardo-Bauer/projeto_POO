@@ -2,6 +2,7 @@ package br.ucs.ucs360.menus.admin;
 
 import java.util.Scanner;
 
+import br.ucs.ucs360.menus.admin.crud.MenuCrudEstoque;
 import br.ucs.ucs360.menus.admin.crud.MenuCrudFornecedor;
 import br.ucs.ucs360.menus.admin.crud.MenuCrudProduto;
 
@@ -16,9 +17,10 @@ public class MenuAdminPrincipal {
 			System.out.println("Selecione a area desejada:");
 			System.out.println("1 - Produto");
 			System.out.println("2 - Fornecedor");
-			System.out.println("3 - Pedido");
-			System.out.println("4 - Cliente");
-			System.out.println("2 - Admin");
+			System.out.println("3 - Estoque");
+			System.out.println("4 - Pedido");
+			System.out.println("5 - Cliente");
+			System.out.println("6 - Admin");
 			System.out.println("0 - Voltar para o menu inicial");
 			opcao = sc.nextInt();
 			sc.nextLine();
@@ -29,6 +31,10 @@ public class MenuAdminPrincipal {
 				
 			case 2:
 				new MenuCrudFornecedor();
+				break;
+			
+			case 3:
+				new MenuCrudEstoque();
 				break;
 				
 			case 0:

@@ -21,7 +21,7 @@ public class Cliente extends Pessoa{
 	}
 	
 	private void preencherDadosCliente() {
-		System.out.println("Digite o numero do cartão de crédito");
+		System.out.print("Digite o numero do cartão de crédito");
 		this.setCartaoCredito(sc.nextLine());
 	}
 	

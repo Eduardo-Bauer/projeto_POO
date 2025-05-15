@@ -18,17 +18,17 @@ public class Produto {
 		sc = new Scanner(System.in);
 	}
 	
-	private void preencherDados(int fornecedor) {
+	private void preencherDados(Fornecedor fornecedor) {
 		System.out.print("Digite o nome do produto: ");
 		this.setNome(sc.nextLine());
 		
 		System.out.print("Digite a Descrição do produto: ");
 		this.setDescricao(sc.nextLine());
 		
-		this.setFornecedor(Fornecedor.getListaFornecedores().get(fornecedor));
+		this.setFornecedor(fornecedor);
 	}
 	
-	private void adcionarProduto() {
+	private void adicionarProduto() {
 		for(Produto produto : Produto.listaProdutos) {
 			if(produto.getNome().equals(this.getNome())) {
 				System.out.println("Produto já cadastrado");
@@ -42,27 +42,22 @@ public class Produto {
 		System.out.println("Produto cadastrado com sucesso!");
 	}
 	
-	public void cadastrarProduto() {
-		int fornecedor = new Fornecedor().escolherFornecedor();
-		
-		if(fornecedor != -1) {
+	public void cadastrarProduto(Fornecedor fornecedor) {
 			preencherDados(fornecedor);
-			
-			adcionarProduto();
-			
-			Fornecedor.getListaFornecedores().get(fornecedor).adicionarProdutoFornecedor(this);
-		}
+			adicionarProduto();
+			fornecedor.adicionarProduto(this);
 	}
 	
-	public int escolherProduto() {
-		int numero = -1;
+	public Produto escolherProduto() {
+		int numero;
 		
 		if(Produto.getListaProdutos().size() == 0) {
 			System.out.println("É necessário cadastrar um produto antes");
-			return numero;
+			return null;
 		}
+		
 		while(true) {
-			consultarProdutos();
+			consultarProdutos(false);
 			
 			System.out.print("Digite o numero do produto: ");
 			
@@ -71,59 +66,56 @@ public class Produto {
 			
 			for(int i = 0; i < listaProdutos.size(); i++) {
 				if(listaProdutos.get(i).getId() == numero) {
-					return i;
+					return listaProdutos.get(i);
 				}
 			}
 			System.out.println("Opção inválida");
 			continue;	
 		}
 	}
+	private void mostrarComplementares(Produto produto) {
+		System.out.println(produto.getEstoque());
+		System.out.println(produto.getFornecedor());
+		System.out.println("");
+	}
 	
-	public void removerProduto() {
-		int produto = escolherProduto();
-		
-		if(produto != -1) {
-			Estoque.getListaEstoque().remove(listaProdutos.get(produto).getEstoque());
-			
-			new Fornecedor().removerProduto(listaProdutos.get(produto));
-			
-			listaProdutos.remove(listaProdutos.get(produto));
-			
-			System.out.println("Produto removido com sucesso!");
+	private void mostrarProduto(Produto produto, boolean admin) {
+		System.out.println("---------------------------------------------");
+		System.out.println("Produto encontrado:");
+		System.out.println(produto);
+		if(admin) {
+			mostrarComplementares(produto);
 		}
 	}
 	
-	public void consultarProdutos() {
+	public void consultarProdutos(boolean admin) {
 		System.out.println("---------------------------------------------");
 		System.out.println("Lista de produtos:");
 		for(Produto produto : listaProdutos) {
 			System.out.println(produto);
+			if(admin) {
+				mostrarComplementares(produto);
+			}
 		}
 	}
 	
-	private void mostrarProduto(Produto produto) {
-		System.out.println("---------------------------------------------");
-		System.out.println("Produto encontrado:");
-		System.out.println(produto);
-	}
-	
-	public void consultarProdutoEspecifico(String[] filtro) {
+	public void consultarProdutoEspecifico(String[] filtro, boolean admin) {
 		boolean encontrado = false;
 	    String id;
 	    if(filtro == null) {
 	    	return;
-	    }else {
-	    	if(filtro[2] != null) {
-	    		consultarProdutos();
-	    		return;
-	    	}
+	    }
+	    
+	    if(filtro[2] != null) {
+	    	consultarProdutos(admin);
+	    	return;
 	    }
 	    
 		if(filtro[0] != null) {
 			for(Produto produto : Produto.listaProdutos) {
 				id = Integer.toString(produto.getId());
 				if(filtro[0].equals(id)) {
-					mostrarProduto(produto);
+					mostrarProduto(produto, admin);
 					encontrado = true;
 					break;
 				}
@@ -131,7 +123,7 @@ public class Produto {
 		}else{
 			for(Produto produto : Produto.listaProdutos) {
 				if(filtro[1].equals(produto.getNome())) {
-					mostrarProduto(produto);
+					mostrarProduto(produto, admin);
 					encontrado = true;
 					break;
 				}
@@ -142,17 +134,25 @@ public class Produto {
 			System.out.println("produto não encontrado");
 		}
 	}
-
-	public void atualizarNome(int produto) {
-		System.out.print("Digite o novo nome: ");
-		listaProdutos.get(produto).setNome(sc.nextLine());
-		System.out.println("Produto atualizado com sucesso!");
+	
+	public void removerProduto(Produto produto) {
+		Estoque.getListaEstoque().remove(produto.getEstoque());
+		produto.getFornecedor().getListaProdutos().remove(produto);
+		listaProdutos.remove(produto);
+		System.out.println("Produto removido com sucesso!");
 	}
 	
-	public void atualizarDescricao(int produto) {
+
+	public void atualizarNome() {
+		System.out.print("Digite o novo nome: ");
+		this.setNome(sc.nextLine());
+		System.out.println("Nome atualizado com sucesso!");
+	}
+	
+	public void atualizarDescricao() {
 		System.out.print("Digite a nova descricao: ");
-		listaProdutos.get(produto).setDescricao(sc.nextLine());
-		System.out.println("Produto atualizado com sucesso!");
+		this.setDescricao(sc.nextLine());
+		System.out.println("Descrição atualizado com sucesso!");
 	}
 	
 	public String getNome() {
@@ -161,6 +161,7 @@ public class Produto {
 	
 	public void setNome(String nome) {
 		this.nome = nome;
+		
 	}
 	
 	public String getDescricao() {
@@ -212,6 +213,6 @@ public class Produto {
 	}
 	
 	public String toString() {
-		return "numero: " + this.getId() + " | nome: " + this.getNome() + " | descrição: " + this.getDescricao() + " | Estoque: " + this.getEstoque() + " | fornecedor: " + this.getFornecedor();
+		return "Produto: " + this.getId() + " | nome: " + this.getNome() + " | descrição: " + this.getDescricao();
 	}
 }

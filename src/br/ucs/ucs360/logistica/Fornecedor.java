@@ -17,7 +17,7 @@ public class Fornecedor extends Pessoa{
 		sc = new Scanner(System.in);
 	}
 	
-	private void preencherDadosFornecedor() {
+	private void preencherDados() {
 		System.out.print("Digite a Descrição do fornecedor: ");
 		this.setDescricao(sc.nextLine());
 	}
@@ -29,42 +29,77 @@ public class Fornecedor extends Pessoa{
 				return;
 			}
 		}
-		System.out.println("Fornecedor cadastrado com sucesso!");
 		listaFornecedores.add(this);
 		ultimoFornecedor++;
+		System.out.println("Fornecedor cadastrado com sucesso!");
+	}
+	
+	public void adicionarProduto(Produto produto) {
+		this.listaProdutos.add(produto);
 	}
 	
 	public void cadastrarFornecedor() {
 		preencherDados(ultimoFornecedor);
-		preencherDadosFornecedor();
+		preencherDados();
 		listaProdutos = new ArrayList<>();
 		adicionarFornecedor();
 	}
 	
-	public void adicionarProdutoFornecedor(Produto produto) {
-		this.listaProdutos.add(produto);
-	}
-	
-	public void removerFornecedor() {
-		int fornecedor = escolherFornecedor();
+	public Fornecedor escolherFornecedor() {
+		int numero;
 		
-		for(Produto produto : listaFornecedores.get(fornecedor).getListaProdutos()) {
-			produto.setFornecedor(null);
+		if(Fornecedor.getListaFornecedores().size() == 0) {
+			System.out.println("É necessário cadastrar um fornecedor antes");
+			return null;
 		}
 		
-		listaFornecedores.remove(fornecedor);
+		while(true){
+			consultarFornecedores();
 		
-		System.out.println("Fornecedor removido com sucesso!");
-	}
-	
-	public void removerProduto(Produto produto) {
-		for(Fornecedor fornecedor : listaFornecedores) {
-			if(fornecedor.getNome().equals(produto.getFornecedor().getNome())) {
-				fornecedor.getListaProdutos().remove(produto);
-				produto.setFornecedor(null);
+			System.out.print("Digite o numero do fornecedor: ");
+			numero = sc.nextInt();
+			sc.nextLine();
+			
+			for(int i = 0; i < listaFornecedores.size(); i++) {
+				if(listaFornecedores.get(i).getId() == numero) {
+					return listaFornecedores.get(i);
+				}
 			}
+			System.out.println("Opção inválida");
+			continue;	
+		} 
+	}
+	
+	public Produto escolherProduto() {
+		int numero;
+		
+		if(this.getListaProdutos().size() == 0) {
+			System.out.println("É necessário cadastrar um produto antes");
+			return null;
 		}
-		System.out.println("Produto removido com sucesso!");
+		
+		while(true){
+			consultarFornecedores();
+		
+			System.out.print("Digite o numero do produto vinculado: ");
+			numero = sc.nextInt();
+			sc.nextLine();
+			
+			for(int i = 0; i < this.getListaProdutos().size(); i++) {
+				if( this.getListaProdutos().get(i).getId() == numero) {
+					return  this.getListaProdutos().get(i);
+				}
+			}
+			System.out.println("Opção inválida");
+			continue;	
+		} 
+	}
+	
+	private void mostrarFornecedor(Fornecedor fornecedor) {
+		System.out.println("---------------------------------------------");
+		System.out.println("Fornecedor encontrado:");
+		System.out.println(fornecedor);
+		System.out.println("");
 	}
 	
 	private void consultarProdutos(Fornecedor fornecedor) {
@@ -78,27 +113,23 @@ public class Fornecedor extends Pessoa{
 		System.out.println("Lista de fornecedores:");
 		for(Fornecedor fornecedor : listaFornecedores) {
 			System.out.println(fornecedor);
-			System.out.println("Seus produtos vinculados: ");
+			System.out.println("Produtos vinculados: ");
 			consultarProdutos(fornecedor);
+			System.out.println("");
 		}
-	}
-	
-	private void mostrarFornecedor(Fornecedor fornecedor) {
-		System.out.println("---------------------------------------------");
-		System.out.println("Fornecedor encontrado:");
-		System.out.println(fornecedor);
 	}
 	
 	public void consultarFornecedorEspecifico(String[] filtro) {
 		boolean encontrado = false;
 	    String id;
+	    
 	    if(filtro == null) {
 	    	return;
-	    }else {
-	    	if(filtro[2] != null) {
-	    		consultarFornecedores();
-	    		return;
-	    	}
+	    }
+	    
+	    if(filtro[2] != null) {
+	    	consultarFornecedores();
+	    	return;
 	    }
 	    
 		if(filtro[0] != null) {
@@ -125,39 +156,35 @@ public class Fornecedor extends Pessoa{
 		}
 	}
 	
-	public int escolherFornecedor() {
-		int numero = -1;
-		
-		if(Fornecedor.getListaFornecedores().size() == 0) {
-			System.out.println("É necessário cadastrar um fornecedor antes");
-			return numero;
+	private void vincularProduto(Produto produto) {
+		System.out.println("");
+		System.out.println("Escolha o novo fonecedor: ");
+		Fornecedor fornecedor = escolherFornecedor();
+		if(fornecedor != null) {
+			produto.setFornecedor(fornecedor);
+			fornecedor.adicionarProduto(produto);
+			System.out.println("Novo fornecedor vinculado com sucesso!");
 		}
-		while(true){
-			consultarFornecedores();
-		
-			System.out.print("Digite o numero do fornecedor: ");
-			numero = sc.nextInt();
-			sc.nextLine();
-			
-			for(int i = 0; i < listaFornecedores.size(); i++) {
-				if(listaFornecedores.get(i).getId() == numero) {
-					return i;
-				}
-			}
-			System.out.println("Opção inválida");
-			continue;	
-			
-		} 
+	}
+
+	public void desvincularProduto(Produto produto) {
+		this.getListaProdutos().remove(produto);
+		vincularProduto(produto);
 	}
 	
-	public void atualizarDescricao(int fornecedor) {
+	public void removerFornecedor(Fornecedor fornecedor) {
+		listaFornecedores.remove(fornecedor);
+		System.out.println("Fornecedor removido com sucesso!");
+	}
+	
+	public void atualizarDescricao() {
 		System.out.print("Digite a nova descrição: ");
-		listaFornecedores.get(fornecedor).setDescricao(sc.nextLine());
+		this.setDescricao(sc.nextLine());
 		System.out.println("Descricao atualizada com sucesso!");
 	}
 	
 	public String getDescricao() {
-		return descricao;
+		return descricao;	
 	}
 
 	public void setDescricao(String descricao) {
@@ -189,6 +216,6 @@ public class Fornecedor extends Pessoa{
 	}
 	
 	public String toString() {
-		return "numero: " + this.getId() + " | nome: " + this.getNome() + " | descrição: " + this.getDescricao();
+		return "Fornecedor: " + this.getId() + " | nome: " + this.getNome() + " | descrição: " + this.getDescricao();
 	}
 }
