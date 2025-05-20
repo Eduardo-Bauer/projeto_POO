@@ -1,48 +1,14 @@
 package br.ucs.ucs360.usuarios.informacoes;
 
-import java.util.Scanner;
-
 public abstract class Pessoa {
 	private String nome;
 	private String telefone;
 	private String email;
 	private Endereco endereco;
 	private int id;
-	private Scanner sc;
 	
-	public void preencherDados(int id) {
-		sc = new Scanner(System.in);
-		
-		System.out.print("Digite nome: ");
-		this.setNome(sc.nextLine());
-		
-		System.out.print("Digite telefone: ");
-		this.setTelefone(sc.nextLine());
-		
-		System.out.print("Digite email: ");
-		this.setEmail(sc.nextLine());
-		
-		this.setId(id);
-		
+	public Pessoa() {
 		endereco = new Endereco();
-	}
-
-	public void atualizarNome() {
-		System.out.print("Digite o novo nome: ");
-		this.setNome(sc.nextLine());
-		System.out.println("Nome atualizado com sucesso!");
-	}
-	
-	public void atualizarTelefone() {
-		System.out.print("Digite o novo telefone: ");
-		this.setTelefone(sc.nextLine());
-		System.out.println("Telefone atualizado com sucesso!");
-	}
-	
-	public void atualizarEmail() {
-		System.out.print("Digite o novo email: ");
-		this.setEmail(sc.nextLine());
-		System.out.println("Email atualizado com sucesso!");
 	}
 	
 	public Endereco getEndereco() {

@@ -1,27 +1,12 @@
 package br.ucs.ucs360.usuarios.informacoes;
 
-import java.util.Scanner;
-
 public class Dado {
 	private String login;
 	private String senha;
 	private boolean tipo;
-	private Scanner sc;
 	
-    private void preencherDados(boolean tipo) {
-        sc = new Scanner(System.in);
-
-        System.out.print("Digite o login: ");
-        this.setLogin(sc.nextLine());
-        
-        System.out.print("Digite a senha: ");
-        this.setSenha(sc.nextLine());
-        		
-        this.setTipo(tipo);
-    }
-	
-	public Dado(boolean tipo) {
-		preencherDados(tipo);
+	public Dado() {
+		
 	}
 	
 	public String getLogin() {

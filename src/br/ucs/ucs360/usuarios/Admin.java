@@ -9,27 +9,10 @@ import br.ucs.ucs360.usuarios.informacoes.Dado;
 public class Admin {
 	private Dado dado;
 	private List<Pedido> pedidos;
-	private static List<Admin> admins = new ArrayList<>();
 	
 	public Admin() {
-		
-	}
-	
-	private void adicionarAdmin() {
-		for(Admin admin : Admin.admins) {
-			if(admin.getDado().getLogin().equals(this.getDado().getLogin())) {
-				System.out.println("Admin já cadastrado, tente fazer o login!");
-				return;
-			}
-		}
-		System.out.println("Admin cadastrado com sucesso!");
-		admins.add(this);
-	}
-	
-	public void cadastrarAdmin() {
-		dado = new Dado(true);
+		dado = new Dado();
 		pedidos = new ArrayList<Pedido>();
-		adicionarAdmin();
 	}
 	
 	private boolean conferirSenha(Admin admin) {
@@ -46,15 +29,12 @@ public class Admin {
 		return false;
 	}
 	
-	public int conferirEntrada() {
-		dado = new Dado(true);
+	public int conferirEntrada(List<Admin> admins) {
 		for(int i = 0; i < admins.size(); i++) {
 			if(conferirSenha(admins.get(i)) && conferirLogin(admins.get(i))) {
-				System.out.println("Continuar");
 				return i;
 			}
 		}
-		System.out.println("Login ou senha incorretos!");
 		return -1;
 	}
 	
