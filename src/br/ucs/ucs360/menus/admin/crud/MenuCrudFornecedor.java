@@ -38,11 +38,16 @@ public class MenuCrudFornecedor {
 				case 2:
 					String[] filtro = new MenuConsulta().consultaEspecifica();
 					if(filtro != null) {
-						if(filtro[2] != null) {
-							mostrarTodosFornecedores(loja.getListaFornecedores());
+						if(filtro[0] != null) {
+							mostrarFornecedor(loja.consultarIdFornecedor(filtro[0]));
 							
 						}else {
-							mostrarFornecedor(loja.consultarFornecedor(filtro));
+							if(filtro[1] != null) {
+								mostrarTodosFornecedores(loja.consultarNomeFornecedor(filtro[1]));
+								
+							}else {
+								mostrarTodosFornecedores(loja.getListaFornecedores());
+							}
 						}
 					}
 					break;

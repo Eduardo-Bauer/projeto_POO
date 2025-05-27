@@ -56,24 +56,25 @@ public class Loja {
 		return false;
 	}
 	
-	public Estoque consultarEstoque(String[] filtro) {
-		String id;
-	    
-		if(filtro[0] != null) {
-			for(Estoque estoque : listaEstoques) {
-				id = Integer.toString(estoque.getId());
-				if(filtro[0].equals(id)) {
-					return estoque;
-				}
-			}
-		}else{
-			for(Estoque estoque : listaEstoques) {
-				if(filtro[1].equals(estoque.getProduto().getNome())){
-					return estoque;
-				}
+	public List<Estoque> consultarNomeEstoque(String nome){
+		List<Estoque> listaEstoqueEncontrado  = new ArrayList<>();
+		for(Estoque estoque : listaEstoques) {
+			if(estoque.getProduto().getNome().toUpperCase().contains(nome.toUpperCase())){
+				listaEstoqueEncontrado.add(estoque);
 			}
 		}
+		return listaEstoqueEncontrado;
+	}
+	
+	public Estoque consultarIdEstoque(String id) {
+		String idEstoque;
 		
+		for(Estoque estoque : listaEstoques) {
+			idEstoque = Integer.toString(estoque.getId());
+			if(id.equals(idEstoque)) {
+				return estoque;
+			}
+		}
 		return null;
 	}
 	
@@ -94,24 +95,25 @@ public class Loja {
 		return true;
 	}
 	
-	public Fornecedor consultarFornecedor(String[] filtro) {
-	    String id;
-	    
-		if(filtro[0] != null) {
-			for(Fornecedor fornecedor : listaFornecedores) {
-				id = Integer.toString(fornecedor.getId());
-				if(filtro[0].equals(id)) {
-					return fornecedor;
-				}
-			}
-		}else{
-			for(Fornecedor fornecedor : listaFornecedores) {
-				if(filtro[1].equals(fornecedor.getNome())){
-					return fornecedor;
-				}
+	public List<Fornecedor> consultarNomeFornecedor(String nome){
+		List<Fornecedor> listaFornecedorEncontrado  = new ArrayList<>();
+		for(Fornecedor fornecedor : listaFornecedores) {
+			if(fornecedor.getNome().toUpperCase().contains(nome.toUpperCase())){
+				listaFornecedorEncontrado.add(fornecedor);
 			}
 		}
+		return listaFornecedorEncontrado;
+	}
+	
+	public Fornecedor consultarIdFornecedor(String id) {
+		String idFornecedor;
 		
+		for(Fornecedor fornecedor : listaFornecedores) {
+			idFornecedor = Integer.toString(fornecedor.getId());
+			if(id.equals(idFornecedor)) {
+				return fornecedor;
+			}
+		}
 		return null;
 	}
 	
@@ -132,24 +134,26 @@ public class Loja {
 		return true;
 	}
 	
-	public Produto consultarProduto(String[] filtro) {
-	    String id;
-	    
-		if(filtro[0] != null) {
-			for(Produto produto : listaProdutos) {
-				id = Integer.toString(produto.getId());
-				if(filtro[0].equals(id)) {
-					return produto;
-				}
-			}
-		}else{
-			for(Produto produto : listaProdutos) {
-				if(filtro[1].equals(produto.getNome())){
-					return produto;
-				}
+	public List<Produto> consultarNomeProduto(String nome){
+		List<Produto> listaProdutoEncontrado  = new ArrayList<>();
+		
+		for(Produto produto : listaProdutos) {
+			if(produto.getNome().toUpperCase().contains(nome.toUpperCase())){
+				listaProdutoEncontrado.add(produto);
 			}
 		}
+		return listaProdutoEncontrado;
+	}
+	
+	public Produto consultarIdProduto(String id) {
+		String idProduto;
 		
+		for(Produto produto : listaProdutos) {
+			idProduto = Integer.toString(produto.getId());
+			if(id.equals(idProduto)) {
+				return produto;
+			}
+		}
 		return null;
 	}
 	

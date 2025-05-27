@@ -46,11 +46,14 @@ public class MenuCrudProduto {
 				case 2:
 					String[] filtro = new MenuConsulta().consultaEspecifica();
 					if(filtro != null) {
-						if(filtro[2] != null) {
-							mostrarTodosProdutos(loja.getListaProdutos());
-							
+						if(filtro[0] != null) {
+							mostrarProduto(loja.consultarIdProduto(filtro[0]));
 						}else {
-							mostrarProduto(loja.consultarProduto(filtro));
+							if(filtro[1] != null) {
+								mostrarTodosProdutos(loja.consultarNomeProduto(filtro[1]));
+							}else {
+								mostrarTodosProdutos(loja.getListaProdutos());
+							}
 						}
 					}
 					break;

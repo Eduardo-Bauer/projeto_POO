@@ -45,11 +45,16 @@ public class MenuCrudEstoque {
 				case 2:
 					String[] filtro = new MenuConsulta().consultaEspecifica();
 					if(filtro != null) {
-						if(filtro[2] != null) {
-							mostrarTodosEstoques(loja.getListaEstoques());
+						if(filtro[0] != null) {
+							mostrarEstoque(loja.consultarIdEstoque(filtro[0]));
 							
 						}else {
-							mostrarEstoque(loja.consultarEstoque(filtro));
+							if(filtro[1] != null) {
+								mostrarTodosEstoques(loja.consultarNomeEstoque(filtro[1]));
+								
+							}else {
+								mostrarTodosEstoques(loja.getListaEstoques());
+							}
 						}
 					}
 					break;
