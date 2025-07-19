@@ -1,11 +1,16 @@
 package br.ucs.ucs360.usuarios;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.ucs.ucs360.logistica.Pedido;
 import br.ucs.ucs360.usuarios.informacoes.Dado;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Admin {
 	private Dado dado;
 	private List<Pedido> pedidos;
@@ -13,6 +18,28 @@ public class Admin {
 	public Admin() {
 		dado = new Dado();
 		pedidos = new ArrayList<Pedido>();
+	}
+	
+	public Pedido consultarIdPedido(String id) {
+		String idPedido;
+		
+		for(Pedido pedido : this.pedidos) {
+			idPedido = Integer.toString(pedido.getNumero());
+			if(id.equals(idPedido)) {
+				return pedido;
+			}
+		}
+		return null;
+	}
+	
+	public List<Pedido> consultarDataPedido(LocalDate[] datas){
+		List<Pedido> listaPedidoEncontrado  = new ArrayList<>();
+		for(Pedido pedido : this.pedidos) {
+			if(pedido.getDataPedido().isAfter(datas[0]) && pedido.getDataPedido().isBefore(datas[1])){
+				listaPedidoEncontrado.add(pedido);
+			}
+		}
+		return listaPedidoEncontrado;
 	}
 	
 	private boolean conferirSenha(Admin admin) {
@@ -46,11 +73,11 @@ public class Admin {
 		this.dado = dado;
 	}
 
-	public List<Pedido> getPedido() {
+	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedido(List<Pedido> pedido) {
+	public void setPedidos(List<Pedido> pedido) {
 		this.pedidos = pedido;
 	}
 }

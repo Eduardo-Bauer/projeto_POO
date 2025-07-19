@@ -3,14 +3,19 @@ package br.ucs.ucs360.menus.atualizacao;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import br.ucs.ucs360.dadosLoja.BancoDados;
+import br.ucs.ucs360.execoes.ErroGravacaoException;
 import br.ucs.ucs360.logistica.Loja;
 import br.ucs.ucs360.logistica.Produto;
 
 public class MenuAtualizacaoProduto {
 	private Scanner sc;
 	
-	public MenuAtualizacaoProduto(Produto produto, Loja loja) {
+	public MenuAtualizacaoProduto(Produto produto, Loja loja) throws JsonProcessingException, ErroGravacaoException {
 		sc = new Scanner(System.in);
+		BancoDados bancoDados = new BancoDados();
 		int opcao = 0;
 		do {
 			try {
@@ -69,7 +74,7 @@ public class MenuAtualizacaoProduto {
                 opcao = -1;
                 sc.nextLine();
             }
-			
+			bancoDados.gravaJSONLoja("banco_de_dados/loja.json", loja);
 		}while(opcao != 0);
 	}
 }

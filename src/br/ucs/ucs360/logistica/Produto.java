@@ -1,5 +1,9 @@
 package br.ucs.ucs360.logistica;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Produto {
 	private int id;
 	private String nome;

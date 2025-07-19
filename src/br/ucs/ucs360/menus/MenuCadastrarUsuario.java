@@ -3,6 +3,10 @@ package br.ucs.ucs360.menus;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import br.ucs.ucs360.dadosLoja.BancoDados;
+import br.ucs.ucs360.execoes.ErroGravacaoException;
 import br.ucs.ucs360.logistica.Loja;
 import br.ucs.ucs360.usuarios.Admin;
 import br.ucs.ucs360.usuarios.Cliente;
@@ -10,8 +14,9 @@ import br.ucs.ucs360.usuarios.Cliente;
 public class MenuCadastrarUsuario {
 	private Scanner sc;
 	
-	public MenuCadastrarUsuario(Loja loja) {
+	public MenuCadastrarUsuario(Loja loja) throws ErroGravacaoException, JsonProcessingException {
 		sc = new Scanner(System.in);
+		BancoDados bancoDados = new BancoDados();
 		int opcao = 0;
 		do {
 			try {
@@ -26,11 +31,13 @@ public class MenuCadastrarUsuario {
 				switch(opcao) {
 				case 1:
 					System.out.println((loja.adicionarCliente(cadastrarCliente()) ? "Cliente cadastrado com sucesso!" : "Usuario já cadastrado"));
+					bancoDados.gravaJSONLoja("banco_de_dados/loja.json", loja);
 					opcao = 0;
 					break;
 					
 				case 2:
 					System.out.println((loja.adicionarAdmin(cadastrarAdmin()) ?  "Admin cadastrado com sucesso!" : "Usuario já cadastrado"));
+					bancoDados.gravaJSONLoja("banco_de_dados/loja.json", loja);
 					opcao = 0;
 					break;
 					
@@ -60,8 +67,6 @@ public class MenuCadastrarUsuario {
         
         System.out.print("Digite a senha: ");
         cliente.getDado().setSenha(sc.nextLine());
-        
-        cliente.getDado().setTipo(false);
 		
 		System.out.print("Digite nome: ");
 		cliente.setNome(sc.nextLine());
@@ -95,6 +100,9 @@ public class MenuCadastrarUsuario {
 		System.out.print("Digite algum complemento: ");
 		cliente.getEndereco().setComplemento(sc.nextLine());
 		
+		System.out.print("Digite cartão de crédito: ");
+		cliente.setCartaoCredito(sc.nextLine());
+		
 		return cliente;
 	}
 	
@@ -106,8 +114,6 @@ public class MenuCadastrarUsuario {
         
         System.out.print("Digite a senha: ");
         admin.getDado().setSenha(sc.nextLine());
-        
-        admin.getDado().setTipo(true);
         
         return admin;
 	}

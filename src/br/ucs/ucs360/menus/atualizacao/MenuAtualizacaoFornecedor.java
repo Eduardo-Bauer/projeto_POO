@@ -4,6 +4,10 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import br.ucs.ucs360.dadosLoja.BancoDados;
+import br.ucs.ucs360.execoes.ErroGravacaoException;
 import br.ucs.ucs360.logistica.Fornecedor;
 import br.ucs.ucs360.logistica.Loja;
 import br.ucs.ucs360.logistica.Produto;
@@ -12,8 +16,9 @@ public class MenuAtualizacaoFornecedor {
 	private Scanner sc;
 	private Produto produto;
 	
-	public MenuAtualizacaoFornecedor(Fornecedor fornecedor, Loja loja) {
+	public MenuAtualizacaoFornecedor(Fornecedor fornecedor, Loja loja) throws JsonProcessingException, ErroGravacaoException {
 		sc = new Scanner(System.in);
+		BancoDados bancoDados = new BancoDados();
 		int opcao = 0;
 		do {
 			try {
@@ -90,7 +95,7 @@ public class MenuAtualizacaoFornecedor {
                 opcao = -1;
                 sc.nextLine();
             }
-			
+			bancoDados.gravaJSONLoja("banco_de_dados/loja.json", loja);
 		}while(opcao != 0);
 	}
 	

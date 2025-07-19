@@ -1,5 +1,11 @@
 package br.ucs.ucs360.logistica;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import br.ucs.ucs360.execoes.QuantidadeInsuficienteException;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Estoque {
 	private int id;
 	private int quantidade;
@@ -8,6 +14,18 @@ public class Estoque {
 	private static int ultimoEstoque = 0;
 	
 	public Estoque() {
+		
+	}
+	
+	public void diminuirQuantidade(int quantidade) throws QuantidadeInsuficienteException {
+		if(quantidade > this.quantidade) {
+			throw new QuantidadeInsuficienteException();
+		}
+		this.quantidade -= quantidade;
+	}
+	
+	public void aumentarQuantidade(int quantidade) {
+		this.quantidade += quantidade;
 	}
 	
 	public int getId() {

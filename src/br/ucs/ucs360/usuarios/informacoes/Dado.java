@@ -1,13 +1,10 @@
 package br.ucs.ucs360.usuarios.informacoes;
 
+import java.util.Objects;
+
 public class Dado {
 	private String login;
 	private String senha;
-	private boolean tipo;
-	
-	public Dado() {
-		
-	}
 	
 	public String getLogin() {
 		return login;
@@ -25,11 +22,24 @@ public class Dado {
 		this.senha = senha;
 	}
 	
-	public boolean isTipo() {
-		return tipo;
+	@Override
+	public int hashCode() {
+		return Objects.hash(login, senha);
 	}
-	
-	public void setTipo(boolean tipo) {
-		this.tipo = tipo;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dado other = (Dado) obj;
+		return Objects.equals(login, other.login) && Objects.equals(senha, other.senha);
+	}
+
+	public String toString() {
+		return this.getLogin() + " " + this.getSenha() + " " + this.getLogin();
 	}
 }

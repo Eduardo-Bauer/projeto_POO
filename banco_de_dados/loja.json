@@ -1,0 +1,453 @@
+{
+  "@id" : 1,
+  "listaClientes" : [ {
+    "@id" : 2,
+    "nome" : "alexandre",
+    "telefone" : "977776666",
+    "email" : "alexandre@gmail.com",
+    "endereco" : {
+      "rua" : "teste",
+      "numero" : "teste",
+      "bairro" : "teste",
+      "cidade" : "teste",
+      "estado" : "teste",
+      "cep" : "teste",
+      "complemento" : "teste"
+    },
+    "id" : 0,
+    "cartaoCredito" : "teste",
+    "dado" : {
+      "login" : "professor",
+      "senha" : "1"
+    },
+    "pedidos" : [ ],
+    "carrinho" : [ ]
+  }, {
+    "@id" : 3,
+    "nome" : "e",
+    "telefone" : "e",
+    "email" : "e",
+    "endereco" : {
+      "rua" : "e",
+      "numero" : "e",
+      "bairro" : "e",
+      "cidade" : "e",
+      "estado" : "e",
+      "cep" : "e",
+      "complemento" : "e"
+    },
+    "id" : 0,
+    "cartaoCredito" : "e",
+    "dado" : {
+      "login" : "edu",
+      "senha" : "123"
+    },
+    "pedidos" : [ {
+      "@id" : 4,
+      "numero" : 0,
+      "dataPedido" : "2025-06-28",
+      "dataEntraga" : "2025-06-28",
+      "dataCancelamento" : null,
+      "situacao" : "ENTREGUE",
+      "itemPedidos" : [ {
+        "@id" : 5,
+        "quantidade" : 20,
+        "preco" : 184.85999999999999,
+        "produto" : {
+          "@id" : 6,
+          "id" : 0,
+          "nome" : "banana",
+          "descricao" : "da tarra",
+          "fornecedor" : {
+            "@id" : 7,
+            "nome" : "pedro",
+            "telefone" : "54 999998888",
+            "email" : "frutas@gmail.com",
+            "endereco" : {
+              "rua" : "bela vista",
+              "numero" : "608",
+              "bairro" : "logradouro",
+              "cidade" : "nova petropolis",
+              "estado" : "rio grande do sul",
+              "cep" : "95150000",
+              "complemento" : "frutas novas"
+            },
+            "id" : 0,
+            "descricao" : "frutas",
+            "listaProdutos" : [ 6, {
+              "@id" : 8,
+              "id" : 1,
+              "nome" : "maca",
+              "descricao" : "vermelha",
+              "fornecedor" : 7,
+              "estoque" : {
+                "@id" : 9,
+                "id" : 0,
+                "quantidade" : 120,
+                "preco" : 5.7,
+                "produto" : 8
+              }
+            }, {
+              "@id" : 10,
+              "id" : 5,
+              "nome" : "Mouse",
+              "descricao" : "Mouse sem fio 1000dps",
+              "fornecedor" : 7,
+              "estoque" : {
+                "@id" : 11,
+                "id" : 0,
+                "quantidade" : 10,
+                "preco" : 59.99,
+                "produto" : 10
+              }
+            } ]
+          },
+          "estoque" : {
+            "@id" : 12,
+            "id" : 0,
+            "quantidade" : 71,
+            "preco" : 7.9,
+            "produto" : 6
+          }
+        }
+      } ],
+      "precoTotal" : 184.85999999999999
+    } ],
+    "carrinho" : [ ]
+  }, {
+    "@id" : 13,
+    "nome" : "Gabriel",
+    "telefone" : "54 99999-9999",
+    "email" : "abc@abc",
+    "endereco" : {
+      "rua" : "A",
+      "numero" : "123",
+      "bairro" : "B",
+      "cidade" : "CXS",
+      "estado" : "RS",
+      "cep" : "12312-123",
+      "complemento" : "123"
+    },
+    "id" : 0,
+    "cartaoCredito" : "1234",
+    "dado" : {
+      "login" : "r.bossa",
+      "senha" : "123"
+    },
+    "pedidos" : [ {
+      "@id" : 14,
+      "numero" : 8,
+      "dataPedido" : "2025-07-02",
+      "dataEntraga" : null,
+      "dataCancelamento" : "2025-07-02",
+      "situacao" : "CANCELADO",
+      "itemPedidos" : [ {
+        "@id" : 15,
+        "quantidade" : 10,
+        "preco" : 701.8829999999999,
+        "produto" : 10
+      }, {
+        "@id" : 16,
+        "quantidade" : 2,
+        "preco" : 135.6966,
+        "produto" : {
+          "@id" : 17,
+          "id" : 3,
+          "nome" : "peito de frango",
+          "descricao" : "1 kg",
+          "fornecedor" : {
+            "@id" : 18,
+            "nome" : "joao",
+            "telefone" : "988887777",
+            "email" : "carnes@gmail.com",
+            "endereco" : {
+              "rua" : "recife",
+              "numero" : "456",
+              "bairro" : "nova olinda",
+              "cidade" : "caxias do sul",
+              "estado" : "rio grande do sul",
+              "cep" : "95150000",
+              "complemento" : "carnes nobres"
+            },
+            "id" : 1,
+            "descricao" : "carne",
+            "listaProdutos" : [ {
+              "@id" : 19,
+              "id" : 2,
+              "nome" : "carne bovina",
+              "descricao" : "1 kg",
+              "fornecedor" : 18,
+              "estoque" : {
+                "@id" : 20,
+                "id" : 0,
+                "quantidade" : 0,
+                "preco" : 99.99,
+                "produto" : 19
+              }
+            }, 17, {
+              "@id" : 21,
+              "id" : 4,
+              "nome" : "custela",
+              "descricao" : "1 kg",
+              "fornecedor" : 18,
+              "estoque" : {
+                "@id" : 22,
+                "id" : 1,
+                "quantidade" : 1,
+                "preco" : 158.99,
+                "produto" : 21
+              }
+            } ]
+          },
+          "estoque" : {
+            "@id" : 23,
+            "id" : 0,
+            "quantidade" : 0,
+            "preco" : 57.99,
+            "produto" : 17
+          }
+        }
+      } ],
+      "precoTotal" : 837.5795999999999
+    }, {
+      "@id" : 24,
+      "numero" : 1,
+      "dataPedido" : "2025-07-02",
+      "dataEntraga" : "2025-07-02",
+      "dataCancelamento" : null,
+      "situacao" : "ENTREGUE",
+      "itemPedidos" : [ {
+        "@id" : 25,
+        "quantidade" : 5,
+        "preco" : 46.214999999999996,
+        "produto" : 6
+      }, {
+        "@id" : 26,
+        "quantidade" : 1,
+        "preco" : 116.98829999999998,
+        "produto" : 19
+      } ],
+      "precoTotal" : 163.20329999999998
+    } ],
+    "carrinho" : [ ]
+  }, {
+    "@id" : 27,
+    "nome" : "eduardo bauer",
+    "telefone" : "5499998888",
+    "email" : "eduardofbauer@gmail.com",
+    "endereco" : {
+      "rua" : "belo horizonte",
+      "numero" : "610",
+      "bairro" : "logradouro",
+      "cidade" : "nova petropolis",
+      "estado" : "rio grande do sul",
+      "cep" : "95150000",
+      "complemento" : "casa"
+    },
+    "id" : 0,
+    "cartaoCredito" : "01725456732",
+    "dado" : {
+      "login" : "eduardo",
+      "senha" : "12345"
+    },
+    "pedidos" : [ ],
+    "carrinho" : [ {
+      "@id" : 28,
+      "quantidade" : 12,
+      "preco" : 814.1795999999999,
+      "produto" : 17
+    } ]
+  } ],
+  "listaAdmins" : [ {
+    "@id" : 29,
+    "dado" : {
+      "login" : "eduardo",
+      "senha" : "12345"
+    },
+    "pedidos" : [ {
+      "@id" : 30,
+      "numero" : 0,
+      "dataPedido" : "2025-06-24",
+      "dataEntraga" : null,
+      "dataCancelamento" : null,
+      "situacao" : "NOVO",
+      "itemPedidos" : [ {
+        "@id" : 31,
+        "quantidade" : 10,
+        "preco" : 0.0,
+        "produto" : 6
+      } ],
+      "precoTotal" : 0.0
+    }, {
+      "@id" : 32,
+      "numero" : 1,
+      "dataPedido" : "2025-06-24",
+      "dataEntraga" : null,
+      "dataCancelamento" : null,
+      "situacao" : "NOVO",
+      "itemPedidos" : [ {
+        "@id" : 33,
+        "quantidade" : 20,
+        "preco" : 0.0,
+        "produto" : 8
+      } ],
+      "precoTotal" : 0.0
+    }, {
+      "@id" : 34,
+      "numero" : 2,
+      "dataPedido" : "2025-06-24",
+      "dataEntraga" : null,
+      "dataCancelamento" : null,
+      "situacao" : "NOVO",
+      "itemPedidos" : [ {
+        "@id" : 35,
+        "quantidade" : 1,
+        "preco" : 0.0,
+        "produto" : 19
+      } ],
+      "precoTotal" : 0.0
+    }, {
+      "@id" : 36,
+      "numero" : 3,
+      "dataPedido" : "2025-06-28",
+      "dataEntraga" : null,
+      "dataCancelamento" : null,
+      "situacao" : "NOVO",
+      "itemPedidos" : [ {
+        "@id" : 37,
+        "quantidade" : 15,
+        "preco" : 0.0,
+        "produto" : 6
+      } ],
+      "precoTotal" : 0.0
+    }, {
+      "@id" : 38,
+      "numero" : 4,
+      "dataPedido" : "2025-06-28",
+      "dataEntraga" : null,
+      "dataCancelamento" : null,
+      "situacao" : "NOVO",
+      "itemPedidos" : [ {
+        "@id" : 39,
+        "quantidade" : 6,
+        "preco" : 0.0,
+        "produto" : 6
+      } ],
+      "precoTotal" : 0.0
+    }, {
+      "@id" : 40,
+      "numero" : 5,
+      "dataPedido" : "2025-06-28",
+      "dataEntraga" : null,
+      "dataCancelamento" : null,
+      "situacao" : "NOVO",
+      "itemPedidos" : [ {
+        "@id" : 41,
+        "quantidade" : 2,
+        "preco" : 0.0,
+        "produto" : 17
+      } ],
+      "precoTotal" : 0.0
+    } ]
+  }, {
+    "@id" : 42,
+    "dado" : {
+      "login" : "g.bossa",
+      "senha" : "123"
+    },
+    "pedidos" : [ {
+      "@id" : 43,
+      "numero" : 0,
+      "dataPedido" : "2025-07-02",
+      "dataEntraga" : null,
+      "dataCancelamento" : null,
+      "situacao" : "NOVO",
+      "itemPedidos" : [ {
+        "@id" : 44,
+        "quantidade" : 50,
+        "preco" : 0.0,
+        "produto" : 6
+      } ],
+      "precoTotal" : 0.0
+    } ]
+  } ],
+  "listaEstoques" : [ 12, 22, 9, 20, 23, 11 ],
+  "listaFornecedores" : [ 7, 18, {
+    "@id" : 45,
+    "nome" : "Dell",
+    "telefone" : "54 9999999",
+    "email" : "dell@dell.com",
+    "endereco" : {
+      "rua" : "Rua 1",
+      "numero" : "1",
+      "bairro" : "Bairro 1",
+      "cidade" : "Caxias do Sul",
+      "estado" : "RS",
+      "cep" : "90000-000",
+      "complemento" : "ABC"
+    },
+    "id" : 2,
+    "descricao" : "Mouse",
+    "listaProdutos" : [ {
+      "@id" : 46,
+      "id" : 7,
+      "nome" : "Mouse sem fio",
+      "descricao" : "1000DPS",
+      "fornecedor" : 45,
+      "estoque" : null
+    } ]
+  }, {
+    "@id" : 47,
+    "nome" : "Logitech",
+    "telefone" : "54 99999-9999",
+    "email" : "logitech@logitech.com",
+    "endereco" : {
+      "rua" : "1",
+      "numero" : "1",
+      "bairro" : "a",
+      "cidade" : "CXS",
+      "estado" : "RS",
+      "cep" : "000000",
+      "complemento" : "123"
+    },
+    "id" : 3,
+    "descricao" : "Eletronicos",
+    "listaProdutos" : [ ]
+  }, {
+    "@id" : 48,
+    "nome" : "A",
+    "telefone" : "A",
+    "email" : "A",
+    "endereco" : {
+      "rua" : "A",
+      "numero" : "A",
+      "bairro" : "A",
+      "cidade" : "A",
+      "estado" : "A",
+      "cep" : "A",
+      "complemento" : "A"
+    },
+    "id" : 4,
+    "descricao" : "A",
+    "listaProdutos" : [ ]
+  }, {
+    "@id" : 49,
+    "nome" : "B",
+    "telefone" : "B",
+    "email" : "B",
+    "endereco" : {
+      "rua" : "B",
+      "numero" : "B",
+      "bairro" : "B",
+      "cidade" : "B",
+      "estado" : "B",
+      "cep" : "B",
+      "complemento" : "B"
+    },
+    "id" : 5,
+    "descricao" : "B",
+    "listaProdutos" : [ ]
+  } ],
+  "listaProdutos" : [ 6, 8, 19, 17, 21, 10, 46 ],
+  "listaPedidos" : [ 4, 24, 14 ]
+}

@@ -1,22 +1,29 @@
 package br.ucs.ucs360.menus.admin.crud;
 
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import br.ucs.ucs360.comparadores.ProdutoDescricaoComparator;
+import br.ucs.ucs360.comparadores.ProdutoNomeComparator;
+import br.ucs.ucs360.dadosLoja.BancoDados;
+import br.ucs.ucs360.execoes.ErroGravacaoException;
 import br.ucs.ucs360.logistica.Estoque;
 import br.ucs.ucs360.logistica.Loja;
 import br.ucs.ucs360.logistica.Produto;
+import br.ucs.ucs360.menus.MenuComparator;
 import br.ucs.ucs360.menus.MenuConsulta;
 import br.ucs.ucs360.menus.atualizacao.MenuAtualizacaoEstoque;
 
 public class MenuCrudEstoque {
 	private Scanner sc;
-	private Estoque estoque;
-	private Produto produto;
 	
-	public MenuCrudEstoque(Loja loja) {
+	public MenuCrudEstoque(Loja loja) throws JsonProcessingException, ErroGravacaoException {
 		sc = new Scanner(System.in);
+		BancoDados bancoDados = new BancoDados();
 		int opcao = 0;
 		
 		do {
@@ -33,7 +40,8 @@ public class MenuCrudEstoque {
 				sc.nextLine();
 				switch(opcao) {
 				case 1:
-					produto = escolherProduto(loja.getListaProdutos());
+					int ordenacao = new MenuComparator().fornecedorProdutoComparator();
+					Produto produto = ordenarProduto(ordenacao, loja.getListaProdutos());
 					if(produto != null) {
 						System.out.println((loja.adicionarEstoque(cadastrarEstoque(produto)) ? "Estoque cadastrado com sucesso!" : "Esse produto já tem um estoque"));
 						
@@ -60,7 +68,7 @@ public class MenuCrudEstoque {
 					break;
 					
 				case 3:
-					estoque = escolherEstoque(loja.getListaEstoques());
+					Estoque estoque = escolherEstoque(loja.getListaEstoques());
 					if(estoque != null) {
 						new MenuAtualizacaoEstoque(estoque, loja);
 						
@@ -74,6 +82,7 @@ public class MenuCrudEstoque {
 					if(estoque != null) {
 						loja.removerEstoque(estoque);
 						System.out.println("Estoque removido com sucesso!");
+			
 						
 					}else {
 						System.out.println("É necessário cadastrar um estoque antes");
@@ -88,13 +97,14 @@ public class MenuCrudEstoque {
 					System.out.println("Opção inválida");
 					break;
 				}
+				bancoDados.gravaJSONLoja("banco_de_dados/loja.json", loja);
 				
 			}catch(InputMismatchException e) {
                 System.out.println("Digite apenas números válidos.");
                 opcao = -1;
                 sc.nextLine();
             }
-			
+
 		}while(opcao != 0);
 	}
 	
@@ -194,5 +204,21 @@ public class MenuCrudEstoque {
 			System.out.println("Opção inválida");
 			continue;	
 		} 
+	}
+	
+	private Produto ordenarProduto(int ordenacao, List<Produto> produtos) {
+		switch(ordenacao) {
+		case 1:
+			return escolherProduto(produtos);
+		
+		case 2:
+			Collections.sort(produtos, new ProdutoNomeComparator());
+			return escolherProduto(produtos);
+		
+		case 3:
+			Collections.sort(produtos, new ProdutoDescricaoComparator());
+			return escolherProduto(produtos);
+		}
+		return null;
 	}
 }

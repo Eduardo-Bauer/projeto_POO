@@ -1,21 +1,30 @@
 package br.ucs.ucs360.menus.admin.crud;
 
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import br.ucs.ucs360.comparadores.FornecedorDescrucaoComparator;
+import br.ucs.ucs360.comparadores.FornecedorNomeComparator;
+import br.ucs.ucs360.comparadores.FornecedorCodigoComparator;
+import br.ucs.ucs360.dadosLoja.BancoDados;
+import br.ucs.ucs360.execoes.ErroGravacaoException;
 import br.ucs.ucs360.logistica.Fornecedor;
 import br.ucs.ucs360.logistica.Loja;
 import br.ucs.ucs360.logistica.Produto;
+import br.ucs.ucs360.menus.MenuComparator;
 import br.ucs.ucs360.menus.MenuConsulta;
 import br.ucs.ucs360.menus.atualizacao.MenuAtualizacaoFornecedor;
 
 public class MenuCrudFornecedor {
 	private Scanner sc;
-	private Fornecedor fornecedor;
 	
-	public MenuCrudFornecedor(Loja loja) {
+	public MenuCrudFornecedor(Loja loja) throws JsonProcessingException, ErroGravacaoException {
 		sc = new Scanner(System.in);
+		BancoDados bancoDados = new BancoDados();
 		int opcao = 0;
 		
 		do {
@@ -40,20 +49,21 @@ public class MenuCrudFornecedor {
 					if(filtro != null) {
 						if(filtro[0] != null) {
 							mostrarFornecedor(loja.consultarIdFornecedor(filtro[0]));
-							
 						}else {
+							int ordenacao = new MenuComparator().fornecedorProdutoComparator();
 							if(filtro[1] != null) {
-								mostrarTodosFornecedores(loja.consultarNomeFornecedor(filtro[1]));
+								ordenarFornecedorMostrar(ordenacao, loja.consultarNomeFornecedor(filtro[1]));
 								
 							}else {
-								mostrarTodosFornecedores(loja.getListaFornecedores());
+								ordenarFornecedorMostrar(ordenacao, loja.getListaFornecedores());
 							}
 						}
 					}
 					break;
 					
 				case 3:
-					fornecedor = escolherFornecedor(loja.getListaFornecedores());
+					int ordenacao = new MenuComparator().fornecedorProdutoComparator();
+					Fornecedor fornecedor = ordenarFornecedorEscolher(ordenacao, loja.getListaFornecedores());
 					if(fornecedor != null) {
 						new MenuAtualizacaoFornecedor(fornecedor, loja);
 						
@@ -63,9 +73,10 @@ public class MenuCrudFornecedor {
 					break;
 					
 				case 4:
-					fornecedor = escolherFornecedor(loja.getListaFornecedores());
-					if(fornecedor != null && fornecedor.getListaProdutos().size() == 0) {
-						loja.removerFornecedor(fornecedor);
+					int ordenacao1 = new MenuComparator().fornecedorProdutoComparator();
+					Fornecedor fornecedor1 = ordenarFornecedorEscolher(ordenacao1, loja.getListaFornecedores());
+					if(fornecedor1 != null && fornecedor1.getListaProdutos().size() == 0) {
+						loja.removerFornecedor(fornecedor1);
 						System.out.println("Fornecedor removido com sucesso!");
 						
 					}else {
@@ -81,13 +92,13 @@ public class MenuCrudFornecedor {
 					System.out.println("Opção inválida");
 					break;
 				}
-				
+				bancoDados.gravaJSONLoja("banco_de_dados/loja.json", loja);
 			}catch(InputMismatchException e) {
                 System.out.println("Digite apenas números válidos.");
                 opcao = -1;
                 sc.nextLine();
             }
-			
+	
 		}while(opcao != 0);
 	}
 	
@@ -106,6 +117,7 @@ public class MenuCrudFornecedor {
 		System.out.print("Digite email: ");
 		fornecedor.setEmail(sc.nextLine());
 		
+		System.out.println(Fornecedor.getUltimoFornecedor());
 		fornecedor.setId(Fornecedor.getUltimoFornecedor());
 		
 		System.out.print("Digite rua: ");
@@ -182,5 +194,44 @@ public class MenuCrudFornecedor {
 			System.out.println("Opção inválida");
 			continue;	
 		} 
+	}
+	
+	private void ordenarFornecedorMostrar(int ordenacao, List<Fornecedor> fornecedores) {
+		switch(ordenacao) {
+		
+		case 1:
+			Collections.sort(fornecedores, new FornecedorCodigoComparator());
+			mostrarTodosFornecedores(fornecedores);
+			break;
+		
+		case 2:
+			Collections.sort(fornecedores, new FornecedorNomeComparator());
+			mostrarTodosFornecedores(fornecedores);
+			break;
+			
+		case 3:
+			Collections.sort(fornecedores, new FornecedorDescrucaoComparator());
+			mostrarTodosFornecedores(fornecedores);
+			break;
+		}
+	}
+	
+	private Fornecedor ordenarFornecedorEscolher(int ordenacao, List<Fornecedor> fornecedores) {
+		switch(ordenacao) {
+		
+		case 1:
+			Collections.sort(fornecedores, new FornecedorCodigoComparator());
+			return escolherFornecedor(fornecedores);
+		
+		case 2:
+			Collections.sort(fornecedores, new FornecedorNomeComparator());
+			return escolherFornecedor(fornecedores);
+			
+		case 3:
+			Collections.sort(fornecedores, new FornecedorDescrucaoComparator());
+			return escolherFornecedor(fornecedores);
+		}
+		
+		return null;
 	}
 }

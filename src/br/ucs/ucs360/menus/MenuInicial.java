@@ -3,16 +3,20 @@ package br.ucs.ucs360.menus;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import br.ucs.ucs360.dadosLoja.BancoDados;
 import br.ucs.ucs360.logistica.Loja;
 
 public class MenuInicial {
     private Scanner sc;
-    private Loja loja = new Loja();
+    private BancoDados bancoDados;
     
-    public MenuInicial() {
+    public MenuInicial() throws Exception {
         sc = new Scanner(System.in);
-        int opcao = -1;
+        bancoDados = new BancoDados();
         
+        Loja loja = bancoDados.leJSONLoja("banco_de_dados/loja.json");
+             
+        int opcao = -1;
         do {
             try {
                 System.out.println("---------------------------------------------");
@@ -51,8 +55,8 @@ public class MenuInicial {
         } while(opcao != 0);
         sc.close();
     }
-
-    public static void main(String[] args) {
-        new MenuInicial();
+    
+    public static void main(String[] args) throws Exception{
+    	new MenuInicial();
     }
 }

@@ -4,16 +4,19 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import br.ucs.ucs360.menus.admin.MenuAdminPrincipal;
 import br.ucs.ucs360.menus.cliente.MenuClientePrincipal;
 import br.ucs.ucs360.usuarios.Admin;
 import br.ucs.ucs360.usuarios.Cliente;
+import br.ucs.ucs360.execoes.ErroGravacaoException;
 import br.ucs.ucs360.logistica.Loja;
 
 public class MenuEntrarUsuario {
 	private Scanner sc;
 	
-	public MenuEntrarUsuario(Loja loja) {
+	public MenuEntrarUsuario(Loja loja) throws JsonProcessingException, ErroGravacaoException{
 		sc = new Scanner(System.in);
 		int opcao = 0;
 		do {
@@ -28,8 +31,8 @@ public class MenuEntrarUsuario {
 				sc.nextLine();
 				switch(opcao) {
 				case 1:
-					int clienteAtivo = entrarCliente(loja.getListaClientes());
-					if(clienteAtivo != -1){
+					Cliente clienteAtivo = entrarCliente(loja.getListaClientes());
+					if(clienteAtivo != null){
 						System.out.println("Entrando...");
 						new MenuClientePrincipal(clienteAtivo, loja);
 						
@@ -40,8 +43,8 @@ public class MenuEntrarUsuario {
 					break;
 					
 				case 2:
-					int adminAtivo = entrarAdmin(loja.getListaAdmins());
-					if(adminAtivo != -1){
+					Admin adminAtivo = entrarAdmin(loja.getListaAdmins());
+					if(adminAtivo != null){
 						System.out.println("Entrando...");
 						new MenuAdminPrincipal(adminAtivo, loja);
 						
@@ -69,31 +72,37 @@ public class MenuEntrarUsuario {
 		}while(opcao != 0);
 	}
 	
-	private int entrarAdmin(List<Admin> admins) {
-		Admin admin = new Admin();
+	private Admin entrarAdmin(List<Admin> admins) {
+		Admin adminTentandoEntrar = new Admin();
 		
         System.out.print("Digite o login: ");
-        admin.getDado().setLogin(sc.nextLine());
+        adminTentandoEntrar.getDado().setLogin(sc.nextLine());
         
         System.out.print("Digite a senha: ");
-        admin.getDado().setSenha(sc.nextLine());
+        adminTentandoEntrar.getDado().setSenha(sc.nextLine());
         
-        admin.getDado().setTipo(true);
-        
-        return admin.conferirEntrada(admins);
+        for(Admin admin : admins){
+        	if(admin.getDado().equals(adminTentandoEntrar.getDado())) {
+        		return admin;
+        	}
+        }
+        return null;
 	}
 	
-	private int entrarCliente(List<Cliente> clientes) {
-		Cliente cliente = new Cliente();
+	private Cliente entrarCliente(List<Cliente> clientes) {
+		Cliente clienteTentandoEntrar = new Cliente();
 		
-        System.out.print("Digite o login: ");
-        cliente.getDado().setLogin(sc.nextLine());
+		System.out.print("Digite o login: ");
+		clienteTentandoEntrar.getDado().setLogin(sc.nextLine());
+		
+		System.out.print("Digite a senha: ");
+		clienteTentandoEntrar.getDado().setSenha(sc.nextLine());
         
-        System.out.print("Digite a senha: ");
-        cliente.getDado().setSenha(sc.nextLine());
-        
-        cliente.getDado().setTipo(false);
-        
-        return cliente.conferirEntrada(clientes);
+        for(Cliente cliente : clientes) {
+        	if(cliente.getDado().equals(clienteTentandoEntrar.getDado())) {
+        		return cliente;
+        	}
+        }
+        return null;
 	}
 }
